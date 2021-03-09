@@ -1,17 +1,66 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<div class="app">
+
+<header class="container-fluid bg-dark text-light">
+  <div class="row">
+    <div class="col">
+      <h1>Lets see what the <img alt="Vue logo" src="./assets/logo.png">iew is like out there in Space!</h1>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="row">
+    <div class="col">
+
+    
+  <button type="submit" class="btn btn-dark m-2" @click="getSpaceInfo()">Launch</button>
+    </div>
+  </div>
+
+<div class="row">
+  <div class="col">
+
+<!-- NOTE place image here -->
+    <space-images />
+    
+
+  </div>
+</div>
+
+</main>
+</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { computed, reactive } from 'vue'
+import { AppState } from './AppState'
+import { spaceImageService} from './services/SpaceImageService'
+import SpaceImages from './components/SpaceImages.vue'
 
 export default {
+  
   name: 'App',
-  components: {
-    HelloWorld
-  }
+setup() {
+  const state = reactive({
+    space: computed(()=> AppState.spaceImages)
+  })
+
+  return {
+    state,
+    getSpaceInfo(){
+    spaceImageService.getSpaceObject()
+
+    }
+      
+    }
+  },
+
+components:{
+SpaceImages
 }
+}
+ 
 </script>
 
 <style>
